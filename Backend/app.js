@@ -41,6 +41,7 @@ app.use('/api/auth', userRoutes);
 app.use('/api/articles', articleRoutes);
 
 
+
 // ensuite créer ma route pour les commentaires
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

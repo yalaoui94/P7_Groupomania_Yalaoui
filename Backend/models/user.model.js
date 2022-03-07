@@ -2,12 +2,11 @@
 //*** Import des modules néccéssaires****//
 const { DataTypes } = require('sequelize');
 const sequelize = require('../confing/db.config');
-const article = require('./article.model');
+
 
 //*********************************//
 // Définition de la logique table User // 
-module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('user', {
+const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: 'created',
     updatedAt: false
   })
-}
+
+module.exports = User; 
 
   // Représentation des éléments de la table user //
   // id, username, password, isAdmin-role // 

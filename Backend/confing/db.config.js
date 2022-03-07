@@ -14,7 +14,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 
 //*******************//
 //**Synchronisation des moèles**//
-//sequelize.sync();
+sequelize.sync();
 
 
 

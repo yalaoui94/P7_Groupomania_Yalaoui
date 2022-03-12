@@ -57,7 +57,7 @@ exports.login = (req, res) => {
         },
 
         config.secret,
-        { expiresIn: '2h' }
+        { expiresIn: '1h' }
       );
 
       res.status(200).json({

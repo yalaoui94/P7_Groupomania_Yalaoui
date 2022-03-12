@@ -6,7 +6,8 @@ const userToken = require('../middleware/authJwt');
 
 // Création d'un nouveau article
 exports.createArticle = (req, res, next) => {
-  if (!req.body.content) {
+  const { title, description, user_id } = req.body
+  if (!title || !description || !user_id) {
     res.status(400).send({
       message: "Veuillez vérifier le contenu des différents champs"
     });
@@ -17,9 +18,11 @@ exports.createArticle = (req, res, next) => {
     Article.create({
       title: req.body.title,
       description: req.body.description,
-      media: null,
-      userId: userId,
+      media: ' ',
+      userId: req.body.user_id,
     })
+    .then(article => res.json({message: 'Article créé', data: article}))
+    .catch(err => res.status(500).json({message: err.message || "Une erreur empêche la récupération des articles"}))
   }
 
 

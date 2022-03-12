@@ -1,6 +1,7 @@
 const express = require('express');// c'est un framework 
 const helmet = require('helmet'); // Package Helmet pour la sécurité des en-têtes
-const morgan = require('morgan'); // à supprimer après le développement
+//const morgan = require('morgan'); // à supprimer après le développement
+const cors = require('cors'); // importation de cors policy
 const app = express(); // ce qui va permettre d'instantier le server 
 const path = require('path'); // c'est le chemin des routes backend pour la communication entre backend et front// 
 
@@ -33,8 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(helmet()); // methode de sécurité qui securise l'application contre les attaques malveillantes//  
-app.use(morgan('dev'));  // à supprimer après le développement
-
+//app.use(morgan('dev'));  // à supprimer après le développement
+app.use(cors());
 
 // Routes routeurs
 app.use('/api/auth', userRoutes);
@@ -44,5 +45,9 @@ app.use('/api/articles', articleRoutes);
 
 // ensuite créer ma route pour les commentaires
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+
+// Ressource inexistante
+app.all('*', (req, res) => res.status(501).send('What ????'))
 
 module.exports = app;

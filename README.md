@@ -19,7 +19,7 @@ Construire un réseau social interne pour l'entreprise *Groupomania*.
 ## Clonage du dépot github
 - **Exécuter sur votre terminal:**
 ```
-git clone [lien projet 7](lien projet 7)
+git clone [https://github.com/yalaoui94/P7_Groupomania_Yalaoui.git](https://github.com/yalaoui94/P7_Groupomania_Yalaoui.git)
 ```
 ***
 
@@ -81,4 +81,4 @@ npm run serve
 
 ## Auteur
 
-- [**Yalaoui94**](lien vers ton github)
+- [**Yalaoui94**](https://github.com/yalaoui94/)

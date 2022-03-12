@@ -1,4 +1,4 @@
-<img alt="groupomania" src="https://raw.githubusercontent.com/yalaoui94/P7_Groupomania_Yalaoui/main/front-end/src/assets/logo(1).png">
+![logo(1)](https://user-images.githubusercontent.com/87702957/158015243-2b753445-e118-4fcc-b729-806a3e4d87f5.png)
 
 # Créez un réseau social d’entreprise.
 
@@ -18,9 +18,8 @@ Construire un réseau social interne pour l'entreprise *Groupomania*.
 
 ## Clonage du dépot github
 - **Exécuter sur votre terminal:**
-```
-git clone [https://github.com/yalaoui94/P7_Groupomania_Yalaoui.git](https://github.com/yalaoui94/P7_Groupomania_Yalaoui.git)
-```
+- **git clone [https://github.com/yalaoui94/P7_Groupomania_Yalaoui.git](https://github.com/yalaoui94/P7_Groupomania_Yalaoui.git)**
+
 ***
 
 ## Pour lancer le backend 
@@ -33,7 +32,15 @@ Fait avec DATABASE: MySQL, ORM: SEQUELIZE, LOGICIEL: NodeJS, FRAMEWORK: Express
 ### 1. Installation du server 
 
 ```
-(Utiliser Laragon pour une installation du serveur plus facile) + //ici tu dois expliquer les fonctions que tu utilises pour mettre en route ta base de donnée. 
+(Utiliser Laragon pour une installation du serveur plus facile):
+- installer laragon sur votre machine 
+- prennez la version complète du serveur
+- demarrer le service du serveur 
+- créer une base de donnée mysql 
+- laisser le user et le mot de passe par défault 
+- appuyer sur ok 
+
+ 
 
 ```
 

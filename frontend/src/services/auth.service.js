@@ -1,4 +1,4 @@
-import router from '../router'
+import router from '../router' // importation de router 
 
 export function authGuard(to){
     //  fonction permettant la vérification du token 

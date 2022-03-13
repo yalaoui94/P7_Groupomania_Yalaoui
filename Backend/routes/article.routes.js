@@ -6,7 +6,7 @@ const router = express.Router(); // importer le router
 
 const authJwt = require('../middleware/authJwt');
 const articleCtrl = require('../controllers/article.controller'); 
-const   multer = require('../middleware/multer-config'); // importer le middeleware(multer) 
+const multer = require('../middleware/multer-config'); // importer le middeleware(multer) 
 
 //logique de routing//
 router.post('/', authJwt, multer, articleCtrl.createArticle);

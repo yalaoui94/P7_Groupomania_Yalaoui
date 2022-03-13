@@ -55,6 +55,7 @@ export default {
       let token = localStorage.getItem("token");
       if (token) {
         let decode = jwt_decode(token);
+        console.log(decode.id);
         this.article.user_id = decode.id;
       }
 

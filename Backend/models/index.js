@@ -19,7 +19,7 @@ db.user.hasMany(db.article, {
   onUpdate: 'NO ACTION',
 });
 
-// un article apartien à un utilisateur 
+// un article  qui appartient à un utilisateur 
 db.article.belongsTo(db.user, {
   foreignKey: 'userId'
 });

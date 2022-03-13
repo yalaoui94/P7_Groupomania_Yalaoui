@@ -40,7 +40,7 @@ const routes = [
   },
   { path: '/:pathMatch(.*)*', redirect: '/profile' } 
   // redirige les utilisateurs vers la page profile 
-  //si il ya une tentative de connextion a une route inexitante 
+  //si il ya une tentative de connexion a une route inexitante 
 
 ]
 

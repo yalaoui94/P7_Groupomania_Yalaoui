@@ -62,6 +62,7 @@ export default {
           password: this.loginInput.password,
         })
         .then((response) => {
+          console.log(response.data);
           localStorage.setItem("token", response.data.accessToken);
           this.$router.push("/profile");
         })

@@ -1,6 +1,5 @@
 const express = require('express');// c'est un framework 
 const helmet = require('helmet'); // Package Helmet pour la sécurité des en-têtes
-//const morgan = require('morgan'); // à supprimer après le développement
 const cors = require('cors'); // importation de cors policy
 const app = express(); // ce qui va permettre d'instantier le server 
 const path = require('path'); // c'est le chemin des routes backend pour la communication entre backend et front// 
@@ -29,13 +28,12 @@ app.use((req, res, next) => {
 
 
 // parse requests of content-type - application/x-www-form-urlencoded recuperer les parametre dans le body de la requete//
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); 
 
 
 app.use(express.json());
 app.use(helmet()); // methode de sécurité qui securise l'application contre les attaques malveillantes//  
-//app.use(morgan('dev'));  // à supprimer après le développement
-app.use(cors());
+app.use(cors());// parametrage du cors policy
 
 // Routes routeurs
 app.use('/api/auth', userRoutes);

@@ -1,12 +1,12 @@
-import { createApp } from 'vue'
-import axios from 'axios'
-import App from './App.vue'
-import router from './router'
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { createApp } from 'vue' // importation de vue
+import axios from 'axios' //importation de axios 
+import App from './App.vue'// importation de app.vue
+import router from './router' //importation de router
+import 'bootstrap'; //importation de bootstrap 5
+import 'bootstrap/dist/css/bootstrap.min.css'; // importation de bootstrap 5 version minifier
 
 
-const app = createApp(App)
+const app = createApp(App) // je crée mon application 
 
 // Interception request pour ajout token dans headers
 axios.interceptors.request.use(req => {
@@ -37,5 +37,5 @@ async (err) => {
   }
 })
 
-app.use(router).mount("#app")
+app.use(router).mount("#app") 
 

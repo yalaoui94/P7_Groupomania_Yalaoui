@@ -15,16 +15,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    logout() {
-      localStorage.removeItem("token");
-      this.$router.push("/");
-    },
-  },
-};
-</script>
+
 
 <style>
 .logo {

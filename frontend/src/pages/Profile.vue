@@ -39,12 +39,14 @@ export default {
   data() {
     return {
       articles: [],
+      userId:0,
     };
+
   },
   mounted() {
     // Récupération des articles dans la base de données
     const API_URL = "http://localhost:8080/api/articles/";
-
+    
     axios
       .get(API_URL)
       .then((response) => {

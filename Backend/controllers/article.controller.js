@@ -1,7 +1,7 @@
 
 //const fs = require('fs') - multer telecharger des fichiers images//
 const Article = require('../models/article.model'); //importation des articles//
-const userToken = require('../middleware/authJwt');
+// const userToken = require('../middleware/authJwt');
 
 
 // Création d'un nouveau article
@@ -21,8 +21,8 @@ exports.createArticle = (req, res, next) => {
       media: ' ',
       userId: req.body.user_id,
     })
-    .then(article => res.json({message: 'Article créé', data: article}))
-    .catch(err => res.status(500).json({message: err.message || "Une erreur empêche la récupération des articles"}))
+      .then(article => res.json({ message: 'Article créé', data: article }))
+      .catch(err => res.status(500).json({ message: err.message || "Une erreur empêche la récupération des articles" }))
   }
 
 
@@ -51,7 +51,7 @@ exports.findOneArticle = (req, res, next) => {
     .then(data => {
       if (data) {
         res.send(data);
-        //{to do - liaison utilisateur avec un article}//
+        //la fonction elle permets de retrouver la data par Id si il ya une data en va l'envoyer sinon erreur 404 //
       } else {
         res.status(404).send({
           message: `Nous ne retrouvons pas l'article avec l'id : ${id}`
@@ -65,24 +65,25 @@ exports.findOneArticle = (req, res, next) => {
     });
 };
 
-// Modifier un article
+// Modifier un article 
 exports.updateArticle = (req, res, next) => {
   const id = req.params.id;
   // je vais chercher la request body l id de mon article // 
   Article.update(req.body, {
     where: { id: id }
+  }).then(function (id) {
+    if (id) {
+      res.send({
+        message: "Votre article a bien été modifié !"
+      });
+
+    }
+    else {
+      res.status(404).send({
+        message: "Impossible de modifier l'article ! "
+      });
+    }
   })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Votre article a bien été modifié !"
-        });
-      } else {
-        res.send({
-          message: `Impossible de modifier l'article ayant l'id :${id}. Veuillez vérifier votre saisie et si l'article existe bien.`
-        });
-      }
-    })
     .catch(err => {
       res.status(500).send({
         message: "Erreur lors de la modification de l'article id : " + id
@@ -93,20 +94,21 @@ exports.updateArticle = (req, res, next) => {
 // Supprimer un article
 exports.deleteArticle = (req, res, next) => {
   const id = req.params.id;
-  //{ to do Authorization pour le delete} 
   // je vais chercher la request body l id de mon article // 
   Article.destroy({
     where: { id: id }
 
   })
-    .then(num => {
-      if (num == 1) {
+    .then(function (id) {
+      if (id) {
         res.send({
-          message: "Votre article a bien été supprimé"
+          message: "Votre article a bien été supprimé !"
         });
-      } else {
-        res.send({
-          message: `Impossible de supprimer votre article ayant pour id : ${id}`
+
+      }
+      else {
+        res.status(404).send({
+          message: "Impossible de supprimer l'article ! "
         });
       }
     })
@@ -117,19 +119,3 @@ exports.deleteArticle = (req, res, next) => {
     });
 };
 
-// // Supprimer tous les articles de la BDD
-// exports.deleteAllArticles = (req, res, next) => {
-//   Article.destroy({
-//     where: {},
-//     truncate: false
-//   })
-//     .then(nums => {
-//       res.send({ message: `${nums} Tous les articles ont été supprimés` });
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Une erreur empêche la suppression multiple des articles"
-//       });
-//     });
-// };

@@ -3,7 +3,7 @@
 const config = require('../confing/auth.config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const userToken = require('../middleware/authJwt');
+// const userToken = require('../middleware/authJwt');
 const User = require('../models/user.model')
 
 exports.signup = (req, res) => {

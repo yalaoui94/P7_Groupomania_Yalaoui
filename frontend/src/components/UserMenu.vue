@@ -1,9 +1,19 @@
 <template>
   <ul class="nav justify-content-end">
     <li class="nav-item">
-      <router-link class="nav-link" to="/article/add">
+      <router-link
+        class="nav-link"
+        to="/profile"
+        title="Se déconnecter"
+        ><button class="btn btn-outline-primary my-2 my-sm-0">
+          Profile
+        </button></router-link
+      >
+    </li>
+    <li class="nav-item">
+      <router-link class="nav-link" to="/message/add">
         <button class="btn btn-outline-primary my-2 my-sm-0">
-          Créer un article
+          Créer un message
         </button></router-link
       >
     </li>

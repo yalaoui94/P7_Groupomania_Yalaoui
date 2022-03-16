@@ -4,10 +4,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../confing/db.config');
 
 //*********************************//
-// Définition du modèle article//
+// Définition du modèle message//
 
-const Article = sequelize.define('article', {
-
+const Message = sequelize.define('message', {
   title: {
     type: DataTypes.STRING,
     allowNull: false
@@ -26,17 +25,20 @@ const Article = sequelize.define('article', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  userName: {
+    type: DataTypes.STRING,
+  },
 }, {
   timestamps: true,
   createdAt: 'created',
   updatedAt: false
 })
 
-//*Représentation de la table Article: *//
+//*Représentation de la table Message: *//
 // id > création automatique, sinon (voire la table en haut)
 // title 
 // content 
 // userId
 // media (image)   
 
-module.exports = Article
+module.exports = Message

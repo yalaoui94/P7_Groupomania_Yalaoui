@@ -53,18 +53,22 @@ export default {
   },
   methods: {
     login() {
-      
+       // Envoie des identifiants à l'API
       const API_URL = "http://localhost:8080/api/auth/";
 
       axios
+      // il ya URL + le body de la requete ici les informations entrées dans les différents input
         .post(API_URL + "login", {
           username: this.loginInput.nom,
           password: this.loginInput.password,
         })
         .then((response) => {
           console.log(response.data);
+          //set des informations user dans le localStorage
           localStorage.setItem("token", response.data.accessToken);
-          this.$router.push("/profile");
+          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("isAdmin", response.data.isAdmin);
+          this.$router.push("/wall");
         })
         .catch((err) => {
           console.log(err);

@@ -5,15 +5,15 @@ const router = express.Router(); // importer le router
 
 
 const authJwt = require('../middleware/authJwt');
-const articleCtrl = require('../controllers/article.controller'); 
+const messageCtrl = require('../controllers/message.controller'); 
 const multer = require('../middleware/multer-config'); // importer le middeleware(multer) 
 
 //logique de routing//
-router.post('/', authJwt, multer, articleCtrl.createArticle);
-router.get('/', authJwt, articleCtrl.findAllArticle);
-router.get('/:id', authJwt,articleCtrl.findOneArticle);
-router.put('/:id', authJwt, multer,articleCtrl.updateArticle);
-router.delete('/:id', authJwt,articleCtrl.deleteArticle);
+router.post('/', authJwt, multer, messageCtrl.createMessage);
+router.get('/', authJwt, messageCtrl.findAllMessage);
+router.get('/:id', authJwt,messageCtrl.findOneMessage);
+router.put('/:id', authJwt, multer,messageCtrl.updateMessage);
+router.delete('/:id', authJwt,messageCtrl.deleteMessage);
 
 
 // j'exporte mon router//

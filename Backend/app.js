@@ -8,14 +8,16 @@ const path = require('path'); // c'est le chemin des routes backend pour la comm
 
 
 
+
 // Inmport des routes
 const userRoutes = require('./routes/user.routes');
-const articleRoutes = require('./routes/article.routes');
+const messageRoutes = require('./routes/message.routes');
+const commentRoutes = require('./routes/comment.routes');
 
 
 
 // Database
-const sequelize = require('./confing/db.config'); // importation de la base donnée // 
+// const sequelize = require('./confing/db.config'); // importation de la base donnée // 
 
 
 // CORS paratge des ressoures entre origines multiples, pour faciliter la communication entre le front et le backend// 
@@ -37,7 +39,8 @@ app.use(cors());// parametrage du cors policy
 
 // Routes routeurs
 app.use('/api/auth', userRoutes);
-app.use('/api/articles', articleRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/comment', commentRoutes);
 
 
 

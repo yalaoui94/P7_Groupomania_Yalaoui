@@ -3,14 +3,12 @@
 const config = require('../confing/auth.config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-// const userToken = require('../middleware/authJwt');
 const User = require('../models/user.model')
 
 exports.signup = (req, res) => {
   console.log(req.body);
   // Enregistrement des utilisateurs dans la BDD
   User.create({
-
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
@@ -63,6 +61,8 @@ exports.login = (req, res) => {
       res.status(200).json({
 
         accessToken: token,
+        userId: user.id,
+        isAdmin: user.isAdmin,
 
       })
     })
@@ -71,18 +71,68 @@ exports.login = (req, res) => {
     });
 };
 
+exports.findOne = (req, res, next) => {
+  //on recherche le userId dans les paramètres de notre requête
+  const userId = req.params.userId
 
-exports.delete = (req, res) => {
-  // Supprimer un compte utilisateur
-  User.destroy({
-    where: { id: req.params.id }
+  //on utilise la méthode findOne pour avoir les infos d'un utilisateur 
+  //en excluant le mot de passe pour plus de sécurité.
+  User.findOne({
+    attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+    where: { id: userId }
   })
-    .then(() => {
-      res.send({ message: "L'utilisateur a bien été supprimé !" });
+    .then(user => { res.status(201).json(user) })
+    .catch(error => res.status(404).json({ error }))
+}
+
+exports.findAll = (req, res, next) => {
+  //on utilise la méthode findAll pour avoir tous les utilisateurs en excluant l'email et le mdp
+  User.findAll({attributes: { exclude: ['email','password'] }})
+  .then(data => {res.send(data);})
+  .catch(error => res.status(404).json({ error }))
+}
+
+
+exports.deleteOne = async (req, res) => {
+  try {
+    //on split l'authorisation dans les header pour seulement avoir le token
+    const token = req.headers.authorization.split(' ')[1];
+    // instantiation des valeurs userId et isAdmin
+    let userId;
+    let isAdmin;
+      try{
+        //on vérifie que notre token est bon
+        let jwtToken = jwt.verify(token, config.secret)
+        if(jwtToken != null) // si notre valeur JWT est non nulle
+
+        //on récupére l'id dans la valeur JWT pour la mettre dans userID
+        userId = jwtToken.id; 
+        //on récupére isAdmin dans la valeur JWT pour la mettre dans isAdmin
+        isAdmin = jwtToken.isAdmin
+
+        //on va rechercher notre user grâce aux informations contenu dans les paramètres de la requête
+        const user = await User.findOne({ where: { id: req.params.userId } })
+
+        //si le userId du token est le même que le user précédemment trouvé ou que c'est l'admin
+        if (userId == user.id || isAdmin == 1) {
+          // alors il pourra supprimer l'utilisateur
+          user.destroy({
+            where: { id: req.params.userId }
+          })
+          return res.json({ message: 'Utilisateur supprimé' })
+
+        } else {
+          res.status(404).json({ 'error': 'Problème authentification' });
+        }
+      } catch(err) {
+        res.json({err: err})
+       }
+    
+  } catch (error) {
+    res.status(401).json({
+      error: new Error('Invalid request ')
     })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
-};
+  }
+}
 
 

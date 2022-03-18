@@ -5,10 +5,8 @@
         <strong>{{
           "Bienvenue dans votre profile " + user.username + " !"
         }}</strong>
-        <router-link
-        to="/userdeleted"
-        @click="deleteSelf">
-        <svg
+        <router-link to="/userdeleted" @click="deleteSelf">
+          <svg
             class="text-danger"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -41,7 +39,7 @@
     </p>
 
     <div v-if="user.isAdmin == 1" class="container mt-5">
-      <p>Les personnes composant la database sont: </p>
+      <p>Les personnes composant la database sont:</p>
       <div v-for="user in users" :key="user.id">
         <span class="fs-6">{{ user.username }}</span>
       </div>
@@ -54,6 +52,7 @@ import axios from "axios";
 export default {
   name: "Profile",
   data() {
+    // array dans lequel on va mettre la response de l'api
     return {
       user: [],
       users: [],
@@ -64,9 +63,10 @@ export default {
     let userId = localStorage.getItem("userId");
     this.userId = userId;
 
-    // Récupération des utilisateurs dans la base de donnée. 
-    const API_URL = "http://localhost:8080/api/auth/";
+    // Récupération des utilisateurs dans la base de donnée.
 
+    const API_URL = "http://localhost:8080/api/auth/";
+    // Récuperer les données de l'utilisateur si c'est this.user (info d'un utilisateur)
     axios
       .get(API_URL + this.userId)
       .then((response) => {
@@ -75,7 +75,7 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-
+    // Récuperer  tous les utilisateurs de la bdd pour que l'admin puisse les voir  (si c'est this.users)
     axios
       .get(API_URL)
       .then((response) => {
@@ -87,24 +87,22 @@ export default {
   },
   methods: {
     // permet à l'utilisateur de se supprimer lui-même
-    deleteSelf(){
+    deleteSelf() {
       //appel a l'api pour avoir la route delete
       const API_URL = "http://localhost:8080/api/auth/";
       axios
         .delete(API_URL + this.user.id)
         .then((response) => {
-          console.log(response)
+          console.log(response);
           // nettoie le localStorage pour empêcher les personnes de revenir sur le wall
           localStorage.clear();
           // envoie l'utilisateur vers une page pour lui permettre de se réinscrire
-          this.$router.push('/userdeleted')
-          
+          this.$router.push("/userdeleted");
         })
         .catch((err) => {
           console.log(err);
         });
-      
-    }
-  }
+    },
+  },
 };
 </script>

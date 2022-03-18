@@ -1,6 +1,6 @@
 //importation des models
 const Comment = require('../models/comment.model');
-const User = require('../models/user.model')
+const db = require('../models');
 
 // Création d'un nouveau commentaire
 exports.createComment = async (req, res, next) => {
@@ -14,15 +14,15 @@ exports.createComment = async (req, res, next) => {
   // ici il va créer mon commentaire// 
   else {
     // il va trouver l'utilisateur 
-    await User.findOne({
+    await db.user.findOne({
       where: { id: user_id }
     }).then(async function (user) {
       //si l'utilisateur est trouvé
       if (user) {
         //il va nous créer un nouveau commentaire
-        let newComment = await Comment.create({
+        let newComment = await db.comment.create({
           comment: req.body.comment,
-          userId: req.body.user_id,
+          UserId: req.body.user_id,
           messageId: req.params.messageId,
           userName: user.username
         });
@@ -41,7 +41,7 @@ exports.createComment = async (req, res, next) => {
 // Retrouver tous les commentaires dans la BDD
 exports.findAllComment = (req, res, next) => {
   //utilisation de la méthode findAll pour trouver tous les commentaires
-  Comment.findAll()
+  db.comment.findAll()
     .then(data => {
       res.send(data);
     })

@@ -3,12 +3,12 @@
 const config = require('../confing/auth.config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../models/user.model')
+const db = require('../models');
 
 exports.signup = (req, res) => {
   console.log(req.body);
   // Enregistrement des utilisateurs dans la BDD
-  User.create({
+  db.user.create({
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
@@ -25,7 +25,7 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
   // Se connecter
   console.log(req.body);
-  User.findOne({
+  db.user.findOne({
     where: {
       username: req.body.username
     }
@@ -77,7 +77,7 @@ exports.findOne = (req, res, next) => {
 
   //on utilise la méthode findOne pour avoir les infos d'un utilisateur 
   //en excluant le mot de passe pour plus de sécurité.
-  User.findOne({
+  db.user.findOne({
     attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
     where: { id: userId }
   })
@@ -87,7 +87,7 @@ exports.findOne = (req, res, next) => {
 
 exports.findAll = (req, res, next) => {
   //on utilise la méthode findAll pour avoir tous les utilisateurs en excluant l'email et le mdp
-  User.findAll({attributes: { exclude: ['email','password'] }})
+  db.user.findAll({attributes: { exclude: ['email','password'] }})
   .then(data => {res.send(data);})
   .catch(error => res.status(404).json({ error }))
 }
@@ -111,12 +111,12 @@ exports.deleteOne = async (req, res) => {
         isAdmin = jwtToken.isAdmin
 
         //on va rechercher notre user grâce aux informations contenu dans les paramètres de la requête
-        const user = await User.findOne({ where: { id: req.params.userId } })
+        const user = await db.user.findOne({ where: { id: req.params.userId } })
 
         //si le userId du token est le même que le user précédemment trouvé ou que c'est l'admin
         if (userId == user.id || isAdmin == 1) {
           // alors il pourra supprimer l'utilisateur
-          user.destroy({
+          db.user.destroy({
             where: { id: req.params.userId }
           })
           return res.json({ message: 'Utilisateur supprimé' })

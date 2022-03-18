@@ -1,18 +1,13 @@
 //*****************************************//
 //*** Import des modules néccéssaires****//
 const { DataTypes } = require('sequelize');
-const sequelize = require('../confing/db.config');
+
 
 //*********************************//
 // Définition du modèle comment //
-
-const Comment = sequelize.define('comment', {
-  messageId: {
-    type: DataTypes.INTEGER,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-  },
+module.exports = (sequelize) => {
+return Comment = sequelize.define('comment', {
+  
   userName: {
     type: DataTypes.STRING,
   },
@@ -29,6 +24,8 @@ const Comment = sequelize.define('comment', {
   updatedAt: false
 })
 
+}
+
 
 //*Représentation de la table Comment: *//
 // messageId > création automatique, sinon (voire la table en haut) 
@@ -36,7 +33,7 @@ const Comment = sequelize.define('comment', {
 // userName
 // comment 
 
-module.exports = Comment
+
 
 
 

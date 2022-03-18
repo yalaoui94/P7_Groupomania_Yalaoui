@@ -1,40 +1,40 @@
 
 //const fs = require('fs') - multer telecharger des fichiers images//
 const Message = require('../models/message.model'); //importation des messages//
-const User = require('../models/user.model')
+const db = require('../models');
 // const userToken = require('../middleware/authJwt');
 
 
 // Création d'un nouveau message
 exports.createMessage = async (req, res, next) => {
-  const { title, description, user_id  } = req.body
+  const { title, description, user_id } = req.body
   if (!title || !description || !user_id) {
-      res.status(400).send({
-          message: "Veuillez vérifier le contenu du message"
-      });
-      return
+    res.status(400).send({
+      message: "Veuillez vérifier le contenu du message"
+    });
+    return
   }
   // ici il va créer mon message// 
   else {
-    await User.findOne({
-      where: {id: user_id}
-    }).then(async function(user){
-      if(user){
-        let newMessage = await Message.create({
+    await db.user.findOne({
+      where: { id: user_id }
+    }).then(async function (user) {
+      if (user) {
+        let newMessage = await db.message.create({
           title: req.body.title,
           description: req.body.description,
           media: ' ',
-          userId: req.body.user_id,
+          UserId: req.body.user_id,
           userName: user.username
-        }); 
+        });
         return res.status(200).json({ message: 'message créé', data: newMessage })
-      }else {
+      } else {
         return res.status(500).json({ message: err.message || "Une erreur empêche la récupération des messages" })
       }
     }).catch(function (error) {
       return res.status(500).json({ error });
     });
-     
+
   }
 
 
@@ -43,7 +43,7 @@ exports.createMessage = async (req, res, next) => {
 // Retrouver tous les messages dans la BDD
 exports.findAllMessage = (req, res, next) => {
 
-  Message.findAll()
+  db.message.findAll()
     .then(data => {
       res.send(data);
     })
@@ -59,7 +59,7 @@ exports.findAllMessage = (req, res, next) => {
 exports.findOneMessage = (req, res, next) => {
   const id = req.params.id; // recupération de l 'id dans les parametres,  //
 
-  Message.findByPk(id)
+  db.message.findByPk(id)
     .then(data => {
       if (data) {
         res.send(data);
@@ -81,7 +81,7 @@ exports.findOneMessage = (req, res, next) => {
 exports.updateMessage = (req, res, next) => {
   const id = req.params.id;
   // je vais chercher la request body l id de mon message // 
-  Message.update(req.body, {
+  db.message.update(req.body, {
     where: { id: id }
   }).then(function (id) {
     if (id) {
@@ -107,7 +107,7 @@ exports.updateMessage = (req, res, next) => {
 exports.deleteMessage = (req, res, next) => {
   const id = req.params.id;
   // je vais chercher la request body l id de mon message // 
-  Message.destroy({
+  db.message.destroy({
     where: { id: id }
 
   })

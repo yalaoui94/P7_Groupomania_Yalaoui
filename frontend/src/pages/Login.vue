@@ -26,7 +26,7 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+      <button type="submit" class="btn btn-pink my-2 my-sm-0">
         Envoyer
       </button>
     </form>

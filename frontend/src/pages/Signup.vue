@@ -36,7 +36,7 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+      <button type="submit" class=" btn btn-pink my-2 my-sm-0">
         Envoyer
       </button>
     </form>
@@ -82,3 +82,19 @@ export default {
   },
 };
 </script>
+<style>
+.btn-pink {
+/* background: var(--bs-pink); */
+color: var(--bs-pink) !important;
+border-color: var(--bs-pink) !important;
+
+}
+
+.btn-pink:hover{
+  color: white !important;
+  background-color:  var(--bs-pink) !important;
+  border-color: var(--bs-pink) !important;
+
+};
+
+</style>

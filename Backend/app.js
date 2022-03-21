@@ -16,8 +16,7 @@ const commentRoutes = require('./routes/comment.routes');
 
 
 
-// Database
-// const sequelize = require('./confing/db.config'); // importation de la base donnée // 
+
 
 
 // CORS paratge des ressoures entre origines multiples, pour faciliter la communication entre le front et le backend// 

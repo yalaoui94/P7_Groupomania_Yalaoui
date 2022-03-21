@@ -80,7 +80,7 @@ exports.findOneMessage = (req, res, next) => {
 // Modifier un message 
 exports.updateMessage = (req, res, next) => {
   const id = req.params.id;
-  // je vais chercher la request body l id de mon message // 
+  // on vas chercher la request body l id de mon message // 
   db.message.update(req.body, {
     where: { id: id }
   }).then(function (id) {

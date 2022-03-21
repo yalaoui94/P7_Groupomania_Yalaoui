@@ -24,7 +24,7 @@
           <router-link
             :to="{ name: 'ModifyMessage', params: { id: message.id } }"
             title="Modifier l'message"
-            v-if="userId == message.userId || isAdmin == 1"
+            v-if="userId == message.UserId || isAdmin == 1"
           >
             <span
               ><svg
@@ -62,7 +62,7 @@
               required
               min="2"
             />
-            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+            <button type="submit" class="btn btn-pink my-2 my-sm-0">
               Envoyer
             </button>
           </div>
@@ -104,6 +104,7 @@ export default {
     };
   },
   created() {
+    console.log(this.message);
     // Récupération du userId dans le localStorage
     let userId = localStorage.getItem("userId");
     this.userId = userId;
